@@ -10,13 +10,26 @@ import org.springframework.web.client.RestTemplate;
 
 import com.devsuperior.hrpayroll.entities.Payment;
 import com.devsuperior.hrpayroll.entities.Worker;
+import com.devsuperior.hrpayroll.feignclients.WorkerFeignClient;
 
 @Service
 public class PaymentService {
 	
+	
+	@Autowired
+	private WorkerFeignClient workerFeignClient;
+	
+	
+	public Payment getPayment(Long workerId , int days) {
+		Worker worker = workerFeignClient.findById(workerId).getBody();
+		return new Payment(worker.getName(), worker.getDailyIncome(), days);
+	}
+	
+	
+	/** acessando um endpoint com resttemplate 
+	
 	@Value("${hr-worker.host}")
 	private String workerhHost;
-	
 	
 	@Autowired
 	private RestTemplate restTemplate;
@@ -27,5 +40,5 @@ public class PaymentService {
 		
 		Worker worker = restTemplate.getForObject(workerhHost + "/workers/{id}" , Worker.class, uriVariables);
 		return new Payment(worker.getName(), worker.getDailyIncome(), days);
-	}
+	}**/
 }
