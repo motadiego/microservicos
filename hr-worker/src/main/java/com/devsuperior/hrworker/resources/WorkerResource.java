@@ -17,10 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.devsuperior.hrworker.entities.Worker;
 import com.devsuperior.hrworker.repositories.WorkerRepository;
 
-/*** @RefreshScope 
-	Deveria pegar o valor atualizado da propriedade "test.config" definido no git
-	spring.cloud.config.server.git.uri=https://github.com/motadiego/microservicos-configs
-*/
+//Deveria pegar o valor atualizado da propriedade "test.config" definido no git
+//spring.cloud.config.server.git.uri=https://github.com/motadiego/microservicos-configs
+//@RefreshScope 
 @RestController
 @RequestMapping(value = "/workers")
 public class WorkerResource {
@@ -46,15 +45,6 @@ public class WorkerResource {
 	
 	@GetMapping(value= "/{id}")
 	private ResponseEntity<Worker> findById(@PathVariable Long id){
-		/** Usado para testar o tempo de retorno do endpoint
-		try {
-			Thread.sleep(3000L);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		*/
-		logger.info("PORT = " + env.getProperty("local.server.port"));
-		
 		Worker worker = repository.findById(id).get();
 		return ResponseEntity.ok(worker);
  	}
