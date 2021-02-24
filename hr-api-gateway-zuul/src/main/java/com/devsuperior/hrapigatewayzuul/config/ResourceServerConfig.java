@@ -20,7 +20,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	
 	private static final String[] ACESSO_HR_WORKER = {"/hr-worker/**"};
 	
-	private static final String[] ACESSO_HR_PAYROLL_AND_HR_USER = {"/hr-payroll/**", "/hr-user/**" };
+	private static final String[] ACESSO_HR_PAYROLL_AND_HR_USER = {"/hr-payroll/**", "/hr-user/**", "/actuator/**", "/hr-worker/actuator/**", "/hr-oauth/actuator/**" };
 	
 	
 	@Override
